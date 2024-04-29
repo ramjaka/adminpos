@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Title -->
-  <title>Cover Log In | Brinara - Admin &amp; Dashboard Template</title>
+  <title>Cover Log In | Front - Admin &amp; Dashboard Template</title>
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="./favicon.ico">
@@ -259,7 +259,7 @@
             <form action="controller/Signin.php" method="POST">
               <div class="text-center">
                 <div class="mb-5">
-                  <h1 class="display-5">Masuk</h1>
+                  <h1 class="display-5">Sign in</h1>
                 </div>
               </div>
 
