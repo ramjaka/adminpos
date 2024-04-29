@@ -1,9 +1,9 @@
 <?php
 // Connection server
 $databaseHost = 'localhost';
-$databaseName = 'brix8356_pos';
-$databaseUsername = 'brix8356';
-$databasePassword = 'Brinara.id!123';
+$databaseName = 'ramjaka';
+$databaseUsername = 'YouAreJ4k$';
+$databasePassword = '7E2RpxkVk0Yt';
 
 // timezone
 date_default_timezone_set("Asia/Jakarta");
