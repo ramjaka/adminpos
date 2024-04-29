@@ -1,0 +1,158 @@
+userAddUser.php :
+1. user_id : huruf depan + ddmmyy + 001 (done)
+2. Validasi (done)
+3. Username tidak boleh sama dan muncul alert (done)
+4. Access menyimpan array (done)
+5. Phone mask (done)
+6. Password toggle (done)
+
+1. Edit product (U) - done
+2. Master supplier (CRUD) - done
+3. Master bank account (CRUD) - done
+4. Master CRM (CRUD) - done
+5. Master spending (CRUD)- done
+6. Master promotion (CRUD) - done
+
+
+feature effect :
+
+Addbalance :
+- table mutation
+
+wmsSpending :
+- table spending
+- table debt *
+- table mutation
+
+$query = "SELECT b.bank_account_number, b.bank_account_name, b.bank_account_holder, b.bank_account_status, b.bank_account_type, (SELECT m.last_balance FROM `mutation` m WHERE m.bank_account_number = b.bank_account_number ORDER BY m.mutation_created_at DESC LIMIT 1) AS last_balance FROM `bank_account` b WHERE b.bank_account_number = '$bank_account_number' ORDER BY b.bank_account_created_at";
+    $result = mysqli_query($mysqli, $query);
+
+ if ($last_balance < $spending_total) {
+        $response = "Bank $bank_account_name balance is insufficient";
+        header("Location: ../wmsSpending.php?errorMessage=" . urlencode($response));
+        exit;
+    }
+
+1. Installment debt
+2. Purchasing & cart
+3. Purchasing detail
+4. Stock
+
+<?php if ($row['debt_payment_status'] = '2' || $row['debt_payment_status'] = NULL) { ?>
+                                                        <span class="badge bg-soft-success text-success">
+                                                            <span class="legend-indicator bg-success"></span>Paid
+                                                        </span>
+                                                    <?php } elseif ($row['debt_payment_status'] === '1') { ?>
+                                                        <span class="badge bg-soft-warning text-warning">
+                                                            <span class="legend-indicator bg-warning"></span>Debt
+                                                        </span>
+                                                    <?php } ?>
+
+* delete spending masih salah karena tidak memiliki transaction_id
+
+* revisi debt
+
+1. Installment (done) - revisi fulfillment date (done)
+2. Spending (done)
+3. Cashier (done) - checkout belum
+4. Hapus sales (done)
+5. Receivables (done) - installment receivable
+6. Mutation (done)
+7. Buku besar (done)
+8. table bank details butuh filter tanggal (done)
+9. Book ledger detail butuh filter tanggal (done)
+10. Trial balance (done)
+11. Data penjualan setiap stock (done)
+12. CRM order (done)
+13. Supplier order (done)
+
+* revisi purchase dan spending untuk debt_id masih menggunakan transaction_id jika tidak menggunakan debt (done)
+
+Revisi back end 1 :
+debt purchase, debt spending, dna receivable sales memiliki halaman php dan controller sendiri. (done)
+
+kekurangan :
+1. spending detail (done)
+2. mutasi bisa cek setiap transaksi (done)
+3. print spending (done)
+4. Add balance detail dan print (done)
+5. delete button tidak muncul kalau status sudah cancel (done)
+6. print dispatch note (done)
+7. purchase description butuh nama pt (done)
+8. Aside navigation active (done)
+9. Date picker trial balance masih error
+
+* Revisi semua date format yang di input ke dalam table menjadi sama seperti format NOW()
+1. Create 
+	- Purchase date (done)
+	- Purchase debt date (done)
+	- Spending date (done)
+	- Spending debt date (done)
+	- Sales date (done)
+	- Sales Receivable date (done)
+2. Read
+	- Purchase list (done)
+	- Spending list (done)
+	- Sales list (done)
+	- Bank debt (done)
+	- Bank receivable (done)
+	- All book ledger (done)
+	- Trial balance
+
+Uji coba pembukuan pertama :
+* Menyiapkan 4 data transaksi purhcase, sales, spending, dan add balance. Masing-masing memiliki debt/receivable kecuali add balance
+
+SELECT 
+                            transaction_date,
+                            description,
+                            purchase_amount,
+                            sales_amount,
+                            @balance := @balance + purchase_amount - sales_amount AS balance
+                        FROM (
+                            SELECT 
+                                transaction_date,
+                                description,
+                                purchase_amount,
+                                sales_amount
+                            FROM (
+                                SELECT 
+                                    purchase_detail_created_at AS transaction_date,
+                                    CONCAT('Pembelian - Rp ', purchase_price * product_qty) AS description,
+                                    item_amount AS purchase_amount,
+                                    0 AS sales_amount
+                                FROM 
+                                    purchase_detail
+                                WHERE 
+                                    product_sku = '$product_sku'
+                                UNION ALL
+                                SELECT 
+                                    sales_detail_created_at AS transaction_date,
+                                    CONCAT('Penjualan - Rp ', purchase_price * product_qty) AS description,
+                                    0 AS purchase_amount,
+                                    purchase_price AS sales_amount
+                                FROM 
+                                    sales_detail
+                                WHERE 
+                                    product_sku = '$product_sku'
+                            ) AS all_transactions
+                        ";
+
+                            if ($date_from && $date_select) {
+                                $query .= "WHERE DATE(transaction_date) BETWEEN '$date_from' AND '$date_select'";
+                            }
+
+                            $query .= " ORDER BY transaction_date
+                        ) AS ordered_transactions
+                        CROSS JOIN 
+                            (SELECT @balance := 0) AS init
+
+done 1
+
+*revisi client :
+-bug ndek add product gamau keluar dek product list (aman)
+-stock tidak mau menampilkan jumlah barang yang sudah dibeli dari suppplier (aman)
+-create member buat last name dan email sebagai optional (done)
+-CRM tiap user belum menampilkan history sales yang sudah dia lakukan ke toko (aman)
+-cashier pembelian per item minta bisa di kasih diskon per itemnya itu beda beda atau diskonnya sendiri sendiri
+-untuk print out neraca buat mode potrait lebih kecil agar tidak kepotong (done)
+-halaman laba rugi dan buku besarnya dibuat dimana
