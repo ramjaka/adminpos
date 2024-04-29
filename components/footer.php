@@ -10,7 +10,7 @@
                 <!-- List Separator -->
                 <ul class="list-inline list-separator">
                     <li class="list-inline-item">
-                        <a class="list-separator-link" href="index.php">Brinara</a>
+                        <a class="list-separator-link" href="index.php">Brinarah</a>
                     </li>
                 </ul>
                 <!-- End List Separator -->
