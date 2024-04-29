@@ -2,7 +2,7 @@
 // Connection server
 $databaseHost = 'localhost';
 $databaseName = 'ramjaka';
-$databaseUsername = 'YouAreJ4k$';
+$databaseUsername = 'YouAreJ4k4';
 $databasePassword = '7E2RpxkVk0Yt';
 
 // timezone
